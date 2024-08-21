@@ -26,13 +26,13 @@ empleaChorros(Personaje) :-
     haceFechorias(Empleado). 
 
 haceFechorias(Personaje) :-
-     esMaton(Personaje). 
+    personaje(Personaje, mafioso(maton)). 
     
 haceFechorias(Personaje) :- 
     personaje(Personaje, ladron(Objetivos)),
-    meber(licorerias, Objetivos). 
+    member(licorerias, Objetivos). 
 
-esMaton(Personaje, mafioso(maton)). 
+
 
 
 %Punto 2
@@ -43,7 +43,7 @@ amigo(vincent, elVendedor).
 
 duoTerrible(Personaje, Acompaniante) :- 
     sonPeligrosos(Personaje, Acompaniante),
-    sonDuo(Personje, Acompaniante). 
+    sonDuo(Personaje, Acompaniante). 
 
 sonPeligrosos(Personaje, Acompaniante) :- 
     esPeligroso(Personaje),
@@ -74,7 +74,7 @@ estaEnProblemas(Personaje) :-
     pareja(Jefe, Pareja). 
 
 estaProblemas(Personaje) :- 
-    encargo(_, Personaje, buscar(Buscado, _))
+    encargo(_, Personaje, buscar(Buscado, _)),
     personaje(Buscado, boxeador). 
 
 % Punto 4 
@@ -84,7 +84,7 @@ sanCayetano(Personaje) :-
     forall(tieneCerca(Personaje, Solicitante), encargo(Personaje,Solicitante,_)).
 
 tieneCerca(Personaje, Solicitante) :- 
-    amigo(Personjae, Solicitante).
+    amigo(Personaje, Solicitante).
 
 tieneCerca(Personaje, Solicitante) :-
     trabajaPara(Personaje, Solicitante). 
@@ -93,7 +93,7 @@ tieneCerca(Personaje, Solicitante) :-
 
 masAtareado(Personaje) :- 
     cantCargos(Personaje, Cantidad),
-    forall(cantCargos(OtroPersonaje, OtraCantidadDeCargos), Cantidad > CantidadDeCargos). 
+    forall(cantCargos(_, CantidadDeCargos), Cantidad > CantidadDeCargos). 
 
 cantCargos(Personaje, CantidadDeCargos) :-
     personaje(Personaje, _), 
@@ -116,7 +116,7 @@ nivelDeRespeto(mafiosos(capo), 20).
 personajesRespetables(Personajes) :-
     findall(Personaje, profesionConRespeto(Personaje), Personajes).
 
-profesionConRespeto(Personaje, Nivel) :- 
+profesionConRespeto(Personaje) :- 
     personaje(Personaje, Profesion),
     nivelDeRespeto(Profesion, Nivel),
     Nivel > 9.  
